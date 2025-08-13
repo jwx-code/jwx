@@ -76,3 +76,4 @@ Hinweis:
     sudo mysql
   Wenn du User/PW oder Remote-Zugriff brauchst, sag Bescheid—ich ergänze dir das gezielt.
 EOF
+####
