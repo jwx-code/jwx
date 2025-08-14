@@ -1,3 +1,5 @@
+-- created 13.08.2025 JW
+
 -- sudo mysql --defaults-file=/etc/mysql/debian.cnf
 
 -- Benutzer lokal anlegen
