@@ -1,4 +1,4 @@
--- created 13.08.2025 JW
+-- created 13.08.2025 JW --
 
 -- sudo mysql --defaults-file=/etc/mysql/debian.cnf
 
