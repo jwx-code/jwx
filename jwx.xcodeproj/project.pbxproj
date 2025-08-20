@@ -6,15 +6,25 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXFileReference section */
+		162FFC932E55EB21007B25F3 /* install_server.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = install_server.sh; sourceTree = "<group>"; };
+		162FFC9D2E55EB78007B25F3 /* INFO.TXT */ = {isa = PBXFileReference; lastKnownFileType = text; path = INFO.TXT; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		1658C0B02E4EC54200CF4241 /* web */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = web;
+			sourceTree = "<group>";
+		};
+		1658C0B72E4F3B8800CF4241 /* setup */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = setup;
+			sourceTree = "<group>";
+		};
 		166AC4242E4CD0CF006EEB49 /* sql */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = sql;
-			sourceTree = "<group>";
-		};
-		166AC4262E4CD0FE006EEB49 /* sh */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = sh;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -23,8 +33,11 @@
 		166AC41B2E4BDD69006EEB49 = {
 			isa = PBXGroup;
 			children = (
-				166AC4262E4CD0FE006EEB49 /* sh */,
+				162FFC9D2E55EB78007B25F3 /* INFO.TXT */,
+				1658C0B72E4F3B8800CF4241 /* setup */,
+				1658C0B02E4EC54200CF4241 /* web */,
 				166AC4242E4CD0CF006EEB49 /* sql */,
+				162FFC932E55EB21007B25F3 /* install_server.sh */,
 			);
 			sourceTree = "<group>";
 		};
