@@ -1,0 +1,7 @@
+#
+packages:
+  - mysql
+runcmd:
+  - systemctl enable --now mysql
+  
+
