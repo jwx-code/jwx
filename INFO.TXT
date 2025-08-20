@@ -1,0 +1,1 @@
+CURRRENT_PATH = /Users/jonaswrede/Documents/JWX_DEV
