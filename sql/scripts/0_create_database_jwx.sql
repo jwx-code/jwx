@@ -1,0 +1,6 @@
+-- created 21.10.2025 JW --
+
+CREATE DATABASE IF NOT EXISTS JWX
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
