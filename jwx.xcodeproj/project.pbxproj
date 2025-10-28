@@ -27,12 +27,18 @@
 			path = sql;
 			sourceTree = "<group>";
 		};
+		167F32B62EB120C6002184AD /* deploy */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = deploy;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXGroup section */
 		166AC41B2E4BDD69006EEB49 = {
 			isa = PBXGroup;
 			children = (
+				167F32B62EB120C6002184AD /* deploy */,
 				162FFC9D2E55EB78007B25F3 /* INFO.TXT */,
 				1658C0B72E4F3B8800CF4241 /* setup */,
 				1658C0B02E4EC54200CF4241 /* web */,
