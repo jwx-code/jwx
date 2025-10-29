@@ -49,7 +49,6 @@ GRANT ALL PRIVILEGES ON testdb.* TO 'testuser'@'%';
 FLUSH PRIVILEGES;\""
 
 echo "==== [4] Install packages / Docker ===="
-multipass exec "$INSTANCE" -- sudo bash -lc "sudo apt update && sudo apt install -y ca-certificates curl gnupg lsb-release"
 multipass exec "$INSTANCE" -- sudo bash -lc "curl -fsSL https://get.docker.com | sudo sh"
 multipass exec "$INSTANCE" -- sudo bash -lc "sudo usermod -aG docker ubuntu || true"
 multipass exec "$INSTANCE" -- sudo bash -lc "sudo apt install -y docker-compose-plugin || true"
@@ -59,8 +58,12 @@ multipass exec "$INSTANCE" -- sudo mkdir -p /var/lib/maxwell
 multipass exec "$INSTANCE" -- sudo chown 1000:1000 /var/lib/maxwell
 multipass exec "$INSTANCE" -- ls -ld /var/lib/maxwell
 
-echo "==== [6] Start Maxwell container on 127.0.0.1 ===="
-multipass exec "$INSTANCE" -- sudo docker rm -f maxwell 2>/dev/null || true
+
+echo "==== [6a] Clean Maxwell container on 127.0.0.1 ===="
+multipass exec "$INSTANCE" -- sudo docker rm -f maxwell
+
+echo "==== [6b] Start Maxwell container on 127.0.0.1 ===="
+
 multipass exec "$INSTANCE" -- sudo docker run -d \
   --name maxwell \
   --network host \
@@ -89,5 +92,9 @@ multipass exec "$INSTANCE" -- sudo bash -lc "if [ -f /var/lib/maxwell/events.jso
 
 echo "==== [9] List /var/lib/maxwell ===="
 multipass exec "$INSTANCE" -- sudo ls -la /var/lib/maxwell
+
+echo "==== [10] CHECK EVENT.json ===="
+multipass exec "$INSTANCE" -- sudo tail -n 50 /var/lib/maxwell/events.json
+
 
 echo "==== Done ===="
