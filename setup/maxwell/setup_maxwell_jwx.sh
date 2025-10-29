@@ -28,10 +28,24 @@ sudo mysql -e \"SHOW VARIABLES LIKE 'binlog_format'; SHOW VARIABLES LIKE 'log_bi
 
 echo "==== [3] Create Maxwell DB/User ===="
 multipass exec "$INSTANCE" -- sudo bash -lc "sudo mysql -e \"
+-- Create Maxwell database if not exists
 CREATE DATABASE IF NOT EXISTS maxwell;
-CREATE USER IF NOT EXISTS 'maxwell'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'secret_pass';
-GRANT SELECT, REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'maxwell'@'127.0.0.1';
-GRANT ALL PRIVILEGES ON maxwell.* TO 'maxwell'@'127.0.0.1';
+
+-- Create Maxwell user with global access
+CREATE USER IF NOT EXISTS 'maxwell'@'%' IDENTIFIED WITH mysql_native_password BY 'secret_pass';
+
+-- Grant required privileges globally
+GRANT SELECT, REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'maxwell'@'%';
+GRANT ALL PRIVILEGES ON maxwell.* TO 'maxwell'@'%';
+
+-- Apply changes
+FLUSH PRIVILEGES;\""
+
+echo "==== [3a] Create Test User for testdb ===="
+multipass exec "$INSTANCE" -- sudo bash -lc "sudo mysql -e \"
+CREATE USER IF NOT EXISTS 'testuser'@'%' IDENTIFIED BY 'test_pass';
+CREATE DATABASE IF NOT EXISTS testdb;
+GRANT ALL PRIVILEGES ON testdb.* TO 'testuser'@'%';
 FLUSH PRIVILEGES;\""
 
 echo "==== [4] Install packages / Docker ===="
@@ -58,17 +72,17 @@ multipass exec "$INSTANCE" -- sudo docker run -d \
     --host=127.0.0.1 \
     --producer=file \
     --output_file=/maxwell/events.json \
-    --replica-server-id=555
+    --replica_server_id=555
 
 sleep 5
 multipass exec "$INSTANCE" -- sudo docker logs --tail 50 maxwell
 
 echo "==== [7] Create test events ===="
-multipass exec "$INSTANCE" -- bash -lc "mysql -uroot -p'ROOT_PASS' -e \"
-CREATE DATABASE IF NOT EXISTS testdb;
+multipass exec "$INSTANCE" -- sudo bash -lc "mysql -utestuser -p'test_pass' -e \"
 USE testdb;
 CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100));
 INSERT INTO users (name) VALUES ('Alice'),('Bob');\""
+
 
 echo "==== [8] Check Maxwell events.json ===="
 multipass exec "$INSTANCE" -- sudo bash -lc "if [ -f /var/lib/maxwell/events.json ]; then tail -n 100 /var/lib/maxwell/events.json; else echo 'events.json not found'; fi"
