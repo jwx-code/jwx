@@ -9,5 +9,4 @@ if [ -z "$1" ]; then
 else
 echo "multipass instance $1 will deleted now (dev_multipass_delete_instance.sh)"
     multipass delete "$1" --purge
-    echo 2
 fi
