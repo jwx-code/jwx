@@ -1,7 +1,21 @@
 #
 packages:
   - mysql
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - python3
+  - python3-pip
+  - python3-mysql.connector
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+  
 runcmd:
   - systemctl enable --now mysql
+  - pip3 install --upgrade mysql-connector-python --break-system-packages
   
 
